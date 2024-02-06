@@ -9,25 +9,36 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import {useSession} from "next-auth/react";
+import {getServerSession} from "next-auth";
+import authOptions from "@/lib/authoptions";
+import Link from "next/link";
 
-export function UserAvatar() {
+export async function UserAvatar() {
+    const session = await getServerSession(authOptions)
+    console.log(session)
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild className={'focus-visible:hidden cursor-pointer'}>
                 <Avatar>
-                    <AvatarImage src="https://github.com/h3xwizz.png" alt="@shadcn" />
+                    <AvatarImage src={session?.user?.image as string} alt="@shadcn" />
                     <AvatarFallback>HW</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel>H3xWizz</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                    <p className={'font-bold'}>{session?.user?.name}</p>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
                 <DropdownMenuItem>Team</DropdownMenuItem>
                 <DropdownMenuItem>Subscription</DropdownMenuItem>
                 <DropdownMenuSeparator/>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <Link href={'/api/auth/signout'}>
+                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                </Link>
             </DropdownMenuContent>
         </DropdownMenu>
     )

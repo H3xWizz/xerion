@@ -5,7 +5,13 @@ import {ThemeProvider} from "@/components/theme-provider";
 import Header from "@/components/header";
 
 export const metadata: Metadata = {
-  title: "Xerion",
+  title: {
+    template: 'Xerion | %s',
+    default: 'Xerion',
+  },
+  icons: {
+    icon: '/logo-light.png'
+  }
 };
 
 export default function RootLayout({

@@ -6,8 +6,8 @@ export const NavItems: NavItem[] = [
         href: '/'
     },
     {
-        name: 'Servers',
-        href: '/servers'
+        name: 'Analytics',
+        href: '/analytics'
     },
     {
         name: 'Logs',
