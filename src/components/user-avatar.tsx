@@ -9,14 +9,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {useSession} from "next-auth/react";
 import {getServerSession} from "next-auth";
 import authOptions from "@/lib/authoptions";
-import Link from "next/link";
+import SignoutButton from "@/components/signout-button";
 
 export async function UserAvatar() {
     const session = await getServerSession(authOptions)
-    console.log(session)
 
     return (
         <DropdownMenu>
@@ -36,9 +34,7 @@ export async function UserAvatar() {
                 <DropdownMenuItem>Team</DropdownMenuItem>
                 <DropdownMenuItem>Subscription</DropdownMenuItem>
                 <DropdownMenuSeparator/>
-                <Link href={'/api/auth/signout'}>
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
-                </Link>
+                <SignoutButton/>
             </DropdownMenuContent>
         </DropdownMenu>
     )

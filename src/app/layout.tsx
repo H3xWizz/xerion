@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
 import Header from "@/components/header";
+import {SessionProvider} from "next-auth/react";
 
 export const metadata: Metadata = {
   title: {
@@ -22,17 +23,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-          <Header/>
-          <div className={'h-[calc(100vh - 4rem)] px-12 py-8'}>
-            {children}
-          </div>
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+          >
+            <Header/>
+            <div className={'h-[calc(100vh - 4rem)] px-12 py-8'}>
+              {children}
+            </div>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );
